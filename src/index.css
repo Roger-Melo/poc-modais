@@ -1,0 +1,20 @@
+.list-of-services {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-service {
+  background-color: pink;
+  border: none;
+  width: 200px;
+  height: 200px;
+}
+
+.button-service:hover {
+  cursor: pointer;
+}
+
+.modal {
+  border: 1px solid lightblue;
+}
