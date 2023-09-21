@@ -54,24 +54,20 @@ const services = [
 const Modal = () => (
   <div className="modal">
     <button>x</button>
-    <h3>LPF</h3>
-    <p>LPF (Low Pressure Fitness) - popularmente mais conhecida por "barriga negativa". É um método de exercícios com baixa pressão no abdômen, fundamentados na técnica de respiração e posturas do RPG. Os exercícios envolvem correção postural, com vácuo abdominal e co-ativação de grupos musculares;</p>
+    <h3>Título do modal</h3>
+    <p>Parágrafo do modal</p>
     <ul>
-      <li>Conscientização e correção da postura global;</li>
-      <li>Diminuição da circunferência abdominal, de até 12cm;</li>
-      <li>Correção da diástase abdominal;</li>
-      <li>Diminuição do escape (incontinência) urinária;</li>
-      <li>Alívio do Estresse</li>
+      <li>li 1</li>
+      <li>li 2</li>
+      <li>li 3</li>
     </ul>
   </div>
 )
 
-const Service = ({ name }) => {
-  const handleClick = () => console.log(`Clicou no botão ${name}`)
-
+const Service = ({ name, onClickService }) => {
   return (
     <li>
-      <button className="button-service" onClick={handleClick}>
+      <button className="button-service" onClick={onClickService}>
         <h3>{name}</h3>
         <span>Saiba mais {'->'}</span>
       </button>
@@ -79,20 +75,24 @@ const Service = ({ name }) => {
   )
 }
 
-const ListOfServices = () => (
+const ListOfServices = ({ onClickService }) => (
   <>
     <h2>Serviços</h2>
     <ul className="list-of-services">
-      {services.map(service => <Service key={service.id} name={service.name} />)}
+      {services.map(service => <Service key={service.id} name={service.name} onClickService={() => onClickService(service.name)} />)}
     </ul>
   </>
 )
 
-const App = () => (
-  <>
-    <Modal />
-    <ListOfServices />
-  </>
-)
+const App = () => {
+  const handleClickService = name => console.log(`Clicou no botão ${name}`)
+
+  return (
+    <>
+      <Modal />
+      <ListOfServices onClickService={handleClickService} />
+    </>
+  )
+}
 
 export { App }
