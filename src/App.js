@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const services = [
   {
     id: '5dfhfs#d',
@@ -51,15 +53,13 @@ const services = [
   },
 ]
 
-const Modal = () => (
+const Modal = ({ modalToShow, onClickClose }) => (
   <div className="modal">
-    <button>x</button>
-    <h3>Título do modal</h3>
-    <p>Parágrafo do modal</p>
+    <button onClick={onClickClose}>x</button>
+    <h3>{modalToShow.name}</h3>
+    <p>{modalToShow.description}</p>
     <ul>
-      <li>li 1</li>
-      <li>li 2</li>
-      <li>li 3</li>
+      {modalToShow.benefits.map(benefit => <li key={benefit}>{benefit}</li>)}
     </ul>
   </div>
 )
@@ -79,17 +79,20 @@ const ListOfServices = ({ onClickService }) => (
   <>
     <h2>Serviços</h2>
     <ul className="list-of-services">
-      {services.map(service => <Service key={service.id} name={service.name} onClickService={() => onClickService(service.name)} />)}
+      {services.map(service => <Service key={service.id} name={service.name} onClickService={() => onClickService(service)} />)}
     </ul>
   </>
 )
 
 const App = () => {
-  const handleClickService = name => console.log(`Clicou no botão ${name}`)
+  const [modalToShow, setModalToShow] = useState(null)
+
+  const handleClickService = clickedService => setModalToShow(clickedService)
+  const handleClickCloseModal = () => setModalToShow(null)
 
   return (
     <>
-      <Modal />
+      {modalToShow && <Modal onClickClose={handleClickCloseModal} modalToShow={modalToShow} />}
       <ListOfServices onClickService={handleClickService} />
     </>
   )
